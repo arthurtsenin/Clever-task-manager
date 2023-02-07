@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { mainColor } from '../../../constants/mainColor';
+import { MAIN_COLOR } from '../../../constants/mainColor';
 
 export const Todo = styled.div`
   display: flex;
   align-items: center;
-  background-color: ${mainColor.background};
+  background-color: ${MAIN_COLOR.background};
   margin: 10px;
   padding: 10px;
   border-radius: 5px;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { mainColor } from '../../constants/mainColor';
+import { MAIN_COLOR } from '../../../constants/mainColor';
 
 export const HeaderContainer = styled.header`
   width: 100%;
@@ -7,7 +7,7 @@ export const HeaderContainer = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: ${mainColor.background};
+  background-color: ${MAIN_COLOR.background};
   position: fixed;
   top: 0;
   left: 0;

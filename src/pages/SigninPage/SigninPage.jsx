@@ -1,6 +1,6 @@
-import { Sign } from '../../components/sign/sign';
+import { Sign } from '../../components/containers/sign/Sign';
 import { useTheme } from '../../context/ThemeContext';
-import { StyledPage } from './SigninPage.styled';
+import { StyledPage } from './SigninPage.styles';
 
 export const SigninPage = () => {
   const theme = useTheme();

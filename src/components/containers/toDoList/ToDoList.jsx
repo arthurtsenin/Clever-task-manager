@@ -1,12 +1,12 @@
 import { useState } from 'react';
-import { PrimaryButton } from '../../button/PrimaryButton';
+import { PrimaryButton } from '../../views/button/PrimaryButton';
 import { TodoItem } from '../toDoItem/ToDoItem';
-import { AddToDo, TodosList } from './ToDoList.styled';
+import { AddToDo, TodosList } from './ToDoList.styles';
 import { UserTodo } from '../../../context/TodoContext';
 import { auth, db } from '../../../api/firebase.config';
 import { set, ref, remove, update } from 'firebase/database';
 import { uid } from 'uid';
-import { dateFormat } from '../../../constants/dateFormat';
+import { DATE_FORMAT, REVERTE_DATE_FORMAT } from '../../../constants/dateFormat';
 import TextField from '@mui/material/TextField';
 import moment from 'moment';
 import Swal from 'sweetalert2';
@@ -32,7 +32,7 @@ export const ToDoList = ({ chosenDate }) => {
       description: description,
       uidd: uidd,
       completed: false,
-      createdAt: date.replace(/(\d*)-(\d*)-(\d*)/, '$3-$2-$1') || chosenDate.format(dateFormat),
+      createdAt: date.replace(/(\d*)-(\d*)-(\d*)/, '$3-$2-$1') || chosenDate.format(DATE_FORMAT),
     });
 
     setTitle('');
@@ -56,7 +56,7 @@ export const ToDoList = ({ chosenDate }) => {
       title: title,
       description: description,
       tempUidd: tempUidd,
-      createdAt: date.replace(/(\d*)-(\d*)-(\d*)/, '$3-$2-$1') || chosenDate.format(dateFormat),
+      createdAt: date.replace(/(\d*)-(\d*)-(\d*)/, '$3-$2-$1') || chosenDate.format(DATE_FORMAT),
     });
 
     setTitle('');
@@ -94,7 +94,7 @@ export const ToDoList = ({ chosenDate }) => {
           type="date"
           color="warning"
           variant="outlined"
-          value={date || chosenDate.format('YYYY-MM-DD')}
+          value={date || chosenDate.format(REVERTE_DATE_FORMAT)}
           onChange={(e) => setDate(e.target.value)}
         />
         {isEdit ? (
@@ -115,7 +115,7 @@ export const ToDoList = ({ chosenDate }) => {
       </AddToDo>
       <TodosList>
         {todos
-          .filter((todo) => todo.createdAt === chosenDate.format(dateFormat))
+          .filter((todo) => todo.createdAt === chosenDate.format(DATE_FORMAT))
           .map((todo) => (
             <TodoItem
               key={todo.uidd}

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyledClock } from './Clock.styled';
+import { StyledClock } from './Clock.styles';
 
 export const Clock = () => {
   const [clock, setClock] = useState('');

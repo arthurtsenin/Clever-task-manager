@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { UserAuth } from '../../context/AuthContext';
-import { FormContainer } from '../form/FormContainer';
-import { Form } from '../form/Form';
-import { Input } from '../form/Input';
-import { PrimaryButton } from '../button/PrimaryButton';
+import { UserAuth } from '../../../context/AuthContext';
+import { FormContainer } from '../../views/formContainer/FormContainer';
+import { Form } from '../../views/form/Form';
+import { Input } from '../../views/input/Input';
+import { PrimaryButton } from '../../views/button/PrimaryButton';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Loader } from '../loader/Loader';
-import { schema } from '../../constants/formShema';
+import { SCHEMA } from '../../../constants/formShema';
 import Swal from 'sweetalert2';
 import Typography from '@mui/material/Typography';
 
@@ -19,7 +19,7 @@ export const Sign = ({ isSign }) => {
 
   const formOptions = {
     mode: 'onBlur',
-    resolver: yupResolver(schema),
+    resolver: yupResolver(SCHEMA),
   };
 
   const {

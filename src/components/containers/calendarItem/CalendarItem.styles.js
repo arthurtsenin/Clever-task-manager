@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { mainColor } from '../../../constants/mainColor';
+import { MAIN_COLOR } from '../../../constants/mainColor';
 
 export const StyledCalendarItem = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ export const StyledCalendarItem = styled.div`
   font-size: 28px;
   padding: 10px;
   border-radius: 10px;
-  background-color: ${mainColor.background};
+  background-color: ${MAIN_COLOR.background};
   box-shadow: 5px 5px 10px gray;
   :hover {
     cursor: pointer;

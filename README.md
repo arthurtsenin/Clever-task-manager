@@ -28,7 +28,6 @@ npm build
 
 ![Snapshot](https://user-images.githubusercontent.com/101280736/212855117-331c1e8f-28d1-49aa-a4c1-8298a382fb38.JPG)
 
-
 ## Application stack
 
 - React
@@ -53,29 +52,32 @@ npm build
 │   ├── _
 │   └── pre-commit
 ├── node_modules
-├───public
-└───src
-    ├───api
-    ├───components
-    │   ├───button
-    │   ├───calendar
-    │   │   ├───calendarItem
-    │   │   └───calendarList
-    │   ├───clock
-    │   ├───form
-    │   ├───header
-    │   ├───loader
-    │   ├───sign
-    │   └───todo
-    │       ├───toDoItem
-    │       └───toDoList
-    ├───constants
-    ├───context
-    ├───pages
-    │   ├───HomePage
-    │   ├───SigninPage
-    │   └───SignupPage
-    └───utils
+├── public
+└── src
+|   ├── api
+|   ├── components
+|   │   ├── containers
+|   │   │   ├── calendarItem
+|   │   │   ├── calendarList
+|   |   │   ├── clock
+|   |   │   ├── header
+|   |   │   ├── loader
+|   |   │   ├── sign
+|   │   |   ├── toDoItem
+|   │   |   └── toDoList
+|   │   ├── views
+|   |   │   ├── button
+|   |   │   ├── form
+|   |   │   ├── formContainer
+|   │   |   └── input
+|   ├── constants
+|   ├── context
+|   ├── pages
+|   │   ├── HomePage
+|   │   ├── SigninPage
+|   │   └── SignupPage
+|   ├── routes
+|   └── utils
 ├── .env
 ├── .eslintrc.json
 ├── .gitignore

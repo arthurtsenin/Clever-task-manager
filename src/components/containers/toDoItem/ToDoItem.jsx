@@ -1,5 +1,5 @@
 import Checkbox from '@mui/material/Checkbox';
-import { Todo, TodoText, TodoDate, StyledEditIcon, StyledDeleteIcon } from './ToDoItem.styled';
+import { Todo, TodoText, TodoDate, StyledEditIcon, StyledDeleteIcon } from './ToDoItem.styles';
 
 export const TodoItem = ({ todo, handleUpdate, handleDelete, toddleCompleted }) => {
   return (

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Fragment } from 'react';
-import { UserAuth } from '../../context/AuthContext';
-import { useTheme } from '../../context/ThemeContext';
-import { HeaderContainer, UserInfo, Email, Button } from './Header.styled';
+import { UserAuth } from '../../../context/AuthContext';
+import { useTheme } from '../../../context/ThemeContext';
+import { HeaderContainer, UserInfo, Email, Button } from './Header.styles';
 import { Clock } from '../clock/Clock';
 import Typography from '@mui/material/Typography';
 import Switch from '@mui/material/Switch';

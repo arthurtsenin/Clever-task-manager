@@ -1,7 +1,8 @@
 import { FlapperSpinner } from 'react-spinners-kit';
-import { LoaderContainer } from './Loader.styled';
+import { LoaderContainer } from './Loader.styles';
+import { MAIN_COLOR } from '../../../constants/mainColor';
 
-export const Loader = ({ color = 'orange', size = 60, loading = false, speedMultiplier = 1 }) => {
+export const Loader = ({ color = MAIN_COLOR, size = 60, loading = false, speedMultiplier = 1 }) => {
   return (
     <LoaderContainer>
       <FlapperSpinner

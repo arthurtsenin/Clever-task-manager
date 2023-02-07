@@ -6,8 +6,8 @@ import {
   DotHasTask,
   DotHasCheckedTask,
   DotsMarkers,
-} from './CalendarItem.styled';
-import { dateFormat } from '../../../constants/dateFormat';
+} from './CalendarItem.styles';
+import { DATE_FORMAT } from '../../../constants/dateFormat';
 import { useEffect, useState } from 'react';
 import { UserTodo } from '../../../context/TodoContext';
 
@@ -22,12 +22,12 @@ export const CalendarItem = ({ day, weekDay, monthNumber, month, className, onCl
   }, [todos]);
 
   const findDaysWithTasks = () => {
-    return todos.map((todo) => todo.createdAt).includes(day.format(dateFormat));
+    return todos.map((todo) => todo.createdAt).includes(day.format(DATE_FORMAT));
   };
 
   const findDaysWithCompletedTasks = () => {
     return todos
-      .filter((todo) => todo.createdAt === day.format(dateFormat))
+      .filter((todo) => todo.createdAt === day.format(DATE_FORMAT))
       .find((item) => item.completed);
   };
 

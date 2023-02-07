@@ -1,5 +1,5 @@
-import { Header } from './components/header/Header';
-import { AppRouter } from './pages/AppRouter';
+import { Header } from './components/containers/header/Header';
+import { AppRouter } from './routes/AppRouter';
 import { Providers } from './context/Providers';
 
 function App() {

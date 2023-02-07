@@ -1,18 +1,24 @@
 import { useEffect, useState, useRef } from 'react';
 import { CalendarItem } from '../calendarItem/CalendarItem';
-import { ToDoList } from '../../todo/toDoList/ToDoList';
-import { dateFormat } from '../../../constants/dateFormat';
+import { ToDoList } from '../toDoList/ToDoList';
+import { DATE_FORMAT } from '../../../constants/dateFormat';
 import { buildCalendar } from '../../../utils/buildCalendar';
 import { UserTodo } from '../../../context/TodoContext';
 import moment from 'moment';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { CalendarContainer, Date, InfoContainer, Tasks, CompletedTasks } from './Calendar.styles';
+import {
+  CalendarContainer,
+  Date,
+  InfoContainer,
+  Tasks,
+  CompletedTasks,
+} from './CalendarList.styles';
 
-export const TasksByDay = () => {
+export const CalendarList = () => {
   const [calendar, setCalendar] = useState([]);
   const [value, setValue] = useState(moment());
-  let [week, setWeek] = useState(1);
+  const [week, setWeek] = useState(1);
   const scrollRef = useRef();
   const { todos } = UserTodo();
 
@@ -53,8 +59,8 @@ export const TasksByDay = () => {
     <>
       <InfoContainer>
         <div>
-          <Date>Current date: {moment().format(dateFormat)}</Date>
-          <Date>Choosen date: {value.format(dateFormat)}</Date>
+          <Date>Current date: {moment().format(DATE_FORMAT)}</Date>
+          <Date>Choosen date: {value.format(DATE_FORMAT)}</Date>
         </div>
         <div>
           <Tasks>Tasks: {todos.length}</Tasks>
