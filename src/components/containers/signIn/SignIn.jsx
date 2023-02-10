@@ -1,21 +1,23 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { Loader } from '@Containers/loader/Loader';
-import { FormContainer } from '@Views/formContainer/FormContainer';
-import { Form } from '@Views/form/Form';
-import { Input } from '@Views/input/Input';
-import { PrimaryButton } from '@Views/button/PrimaryButton';
-import { SuccessSignIn } from '@Views/toasts/SuccessSignIn';
-import { ErrorSignIn } from '@Views/toasts/ErrorSignIn';
-import { formOptions } from '@Constants/formShemaOptions';
-import { UserAuth } from '@Context/AuthContext';
+import { Loader } from '@containers/loader/Loader';
+import { FormContainer } from '@views/formContainer/FormContainer';
+import { Form } from '@views/form/Form';
+import { Input } from '@views/input/Input';
+import { PrimaryButton } from '@views/button/PrimaryButton';
+import { showSuccessSignIn } from '@views/toasts/showSuccessSignIn';
+import { showErrorSignIn } from '@views/toasts/showErrorSignIn';
+import { formOptions } from '@constants/formShemaOptions';
+import { UserAuth } from '@context/AuthContext';
 import Typography from '@mui/material/Typography';
+import { useTheme } from '@context/ThemeContext';
 
 export const SignIn = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { signIn } = UserAuth();
+  const theme = useTheme();
 
   const {
     register,
@@ -28,20 +30,19 @@ export const SignIn = () => {
     setIsLoading(true);
     try {
       await signIn(data.email, data.password);
-      await localStorage.setItem('user', JSON.stringify(data.email));
       setIsLoading(false);
-      SuccessSignIn();
+      showSuccessSignIn();
     } catch (err) {
       setIsLoading(false);
       setError(err.message);
-      ErrorSignIn(error);
+      showErrorSignIn(error);
     } finally {
       setIsLoading(false);
     }
   };
 
   if (isLoading) {
-    return <Loader loading={isLoading} />;
+    return <Loader theme={theme} loading={isLoading} />;
   }
 
   return (

@@ -1,5 +1,5 @@
-import { useTheme } from '@Context/ThemeContext';
-import { CalendarList } from '@Containers/calendarList/CalendarList';
+import { useTheme } from '@context/ThemeContext';
+import { CalendarList } from '@containers/calendarList/CalendarList';
 import { StyledPage } from './HomePage.styles';
 
 export const HomePage = () => {

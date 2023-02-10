@@ -4,14 +4,14 @@ module.exports = {
   webpack: {
     alias: {
       '@': path.resolve(__dirname, 'src/'),
-      '@Api': path.resolve(__dirname, 'src/api'),
-      '@Containers': path.resolve(__dirname, 'src/components/containers'),
-      '@Views': path.resolve(__dirname, 'src/components/views'),
-      '@Constants': path.resolve(__dirname, 'src/constants'),
-      '@Context': path.resolve(__dirname, 'src/context'),
-      '@Pages': path.resolve(__dirname, 'src/pages'),
-      '@Routes': path.resolve(__dirname, 'src/routes'),
-      '@Util': path.resolve(__dirname, 'src/util'),
+      '@api': path.resolve(__dirname, 'src/api'),
+      '@containers': path.resolve(__dirname, 'src/components/containers'),
+      '@views': path.resolve(__dirname, 'src/components/views'),
+      '@constants': path.resolve(__dirname, 'src/constants'),
+      '@context': path.resolve(__dirname, 'src/context'),
+      '@pages': path.resolve(__dirname, 'src/pages'),
+      '@routes': path.resolve(__dirname, 'src/routes'),
+      '@util': path.resolve(__dirname, 'src/util'),
     },
   },
 };

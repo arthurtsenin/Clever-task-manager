@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 
-export const ErrorDateChoose = () => {
+export const showErrorDateChoose = () => {
   Swal.fire({
     icon: 'error',
     title: 'You can`t select a date in the past ',

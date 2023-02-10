@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import { THEMES } from '@Constants/themes';
+import { THEMES } from '@constants/themes';
 
 export const ThemeContext = createContext(THEMES.light);
 

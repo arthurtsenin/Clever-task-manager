@@ -1,8 +1,16 @@
 import { useMemo } from 'react';
-import { UserTodo } from '@Context/TodoContext';
-import { useTheme } from '@Context/ThemeContext';
-import { findDaysWithTasks, findDaysWithCompletedTasks } from '@Util/findDaysWithTasks';
-import { weekDayFormat, monthNumberFormat, monthFormat, markerDay } from '@Api/dateHelper';
+import { UserTodo } from '@context/TodoContext';
+import { useTheme } from '@context/ThemeContext';
+import {
+  findDaysWithTasks,
+  findDaysWithCompletedTasks,
+} from '@containers/calendarItem/utils/findDaysWithTasks';
+import {
+  weekDayFormat,
+  monthNumberFormat,
+  monthFormat,
+} from '@containers/calendarItem/utils/dayFormats';
+import { isSameDay } from '@containers/calendarItem/utils/isSameDay';
 import {
   StyledCalendarItem,
   WeekDay,
@@ -25,7 +33,7 @@ export const CalendarItem = ({ day, value, onClick }) => {
 
   return (
     <>
-      <StyledCalendarItem theme={theme} className={markerDay(value, day)} onClick={onClick}>
+      <StyledCalendarItem theme={theme} className={isSameDay(value, day)} onClick={onClick}>
         <WeekDay>{weekDayFormat(day)}</WeekDay>
         <MonthNumber>{monthNumberFormat(day)}</MonthNumber>
         <Month>{monthFormat(day)}</Month>

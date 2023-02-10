@@ -1,4 +1,4 @@
-import { useTheme } from '@Context/ThemeContext';
+import { useTheme } from '@context/ThemeContext';
 import Checkbox from '@mui/material/Checkbox';
 import { Todo, TodoText, TodoDate, StyledEditIcon, StyledDeleteIcon } from './ToDoItem.styles';
 

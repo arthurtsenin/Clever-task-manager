@@ -1,18 +1,14 @@
 import { useEffect, useState } from 'react';
-import { TodoItem } from '@Containers/toDoItem/ToDoItem';
-import { PrimaryButton } from '@Views/button/PrimaryButton';
-import { ErrorDateChoose } from '@Views/toasts/ErrorDateChoose';
-import { UserTodo } from '@Context/TodoContext';
 import { uid } from 'uid';
-import { dateValidator, revertChoosenDay, choosenDay } from '../../../api/dateHelper';
+import { TodoItem } from '@containers/toDoItem/ToDoItem';
+import { PrimaryButton } from '@views/button/PrimaryButton';
+import { showErrorDateChoose } from '@views/toasts/showErrorDateChoose';
+import { UserTodo } from '@context/TodoContext';
+import { validateDate, revertChoosenDay, getChoosenDay } from '@api/dateHelper';
+import { auth } from '@api/authHelper';
+import { wrireTodo, updateCheckedTodo, updateTodo, deleteTodo } from '@api/todosHelper';
 import TextField from '@mui/material/TextField';
 import { AddToDo, TodosList } from './ToDoList.styles';
-import {
-  authWrireTodo,
-  authUpdateCheckedTodo,
-  authUpdateTodo,
-  authDeleteTodo,
-} from '../../../api/authHelper';
 
 export const ToDoList = ({ chosenDate }) => {
   const [title, setTitle] = useState('');
@@ -23,15 +19,15 @@ export const ToDoList = ({ chosenDate }) => {
   const { todos } = UserTodo();
 
   useEffect(() => {
-    if (dateValidator(date)) {
-      ErrorDateChoose();
+    if (validateDate(date)) {
+      showErrorDateChoose();
     }
   }, [date]);
 
   const writeToDatabase = () => {
     const uidd = uid();
 
-    authWrireTodo(uidd, title, description, date, chosenDate);
+    wrireTodo(auth, uidd, title, description, date, chosenDate);
     setTitle('');
     setDescription('');
     setDate('');
@@ -45,11 +41,11 @@ export const ToDoList = ({ chosenDate }) => {
   };
 
   const changeTodoCompletion = (todo) => {
-    authUpdateCheckedTodo(todo);
+    updateCheckedTodo(auth, todo);
   };
 
   const handleEditConfirm = () => {
-    authUpdateTodo(tempUidd, title, description, date, chosenDate);
+    updateTodo(auth, tempUidd, title, description, date, chosenDate);
     setTitle('');
     setDescription('');
     setDate('');
@@ -57,7 +53,7 @@ export const ToDoList = ({ chosenDate }) => {
   };
 
   const handleDelete = (uid) => {
-    authDeleteTodo(uid);
+    deleteTodo(auth, uid);
   };
 
   const handleChangeTitle = (e) => {
@@ -101,18 +97,18 @@ export const ToDoList = ({ chosenDate }) => {
           onChange={handleChangeDate}
         />
         {isEdit ? (
-          <PrimaryButton disabled={!title || dateValidator(date)} onClick={handleEditConfirm}>
+          <PrimaryButton disabled={!title || validateDate(date)} onClick={handleEditConfirm}>
             CONFIRM
           </PrimaryButton>
         ) : (
-          <PrimaryButton disabled={!title || dateValidator(date)} onClick={writeToDatabase}>
+          <PrimaryButton disabled={!title || validateDate(date)} onClick={writeToDatabase}>
             ADD
           </PrimaryButton>
         )}
       </AddToDo>
       <TodosList>
         {todos
-          .filter((todo) => todo.createdAt === choosenDay(chosenDate))
+          .filter((todo) => todo.createdAt === getChoosenDay(chosenDate))
           .map((todo) => (
             <TodoItem
               key={todo.uidd}

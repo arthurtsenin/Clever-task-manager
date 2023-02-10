@@ -1,6 +1,6 @@
 import Swal from 'sweetalert2';
 
-export const SuccessSignUp = () => {
+export const showSuccessSignUp = () => {
   return Swal.fire({
     icon: 'success',
     title: 'Great job!!! We are glad that you have chosen our app.',

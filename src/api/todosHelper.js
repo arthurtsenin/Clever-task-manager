@@ -1,6 +1,6 @@
 import { getDatabase, onValue, ref, set, update, remove } from 'firebase/database';
-import { app } from '@Api/firebase.config';
-import { createdAtDate } from '@Api/dateHelper';
+import { app } from '@api/firebase.config';
+import { getCreatedAtDate } from '@api/dateHelper';
 
 export const db = getDatabase(app);
 
@@ -22,7 +22,7 @@ export const wrireTodo = (auth, uidd, title, description, date, chosenDate) => {
     description: description,
     uidd: uidd,
     completed: false,
-    createdAt: createdAtDate(date, chosenDate),
+    createdAt: getCreatedAtDate(date, chosenDate),
   });
 };
 
@@ -35,7 +35,7 @@ export const updateTodo = (auth, tempUidd, title, description, date, chosenDate)
     title: title,
     description: description,
     tempUidd: tempUidd,
-    createdAt: createdAtDate(date, chosenDate),
+    createdAt: getCreatedAtDate(date, chosenDate),
   });
 };
 

@@ -1,9 +1,9 @@
 import Swal from 'sweetalert2';
 
-export const ErrorSignIn = (error) => {
+export const showErrorLogOut = (error) => {
   Swal.fire({
     icon: 'error',
-    title: 'Oops... Incorrect data. Try again',
+    title: 'Oops... Something went wrong',
     text: `Error: ${error}`,
   });
 };

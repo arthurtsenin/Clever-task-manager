@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-// import { MAIN_COLOR } from '../../../constants/mainColor';
 
 export const HeaderContainer = styled.header`
   width: 100%;

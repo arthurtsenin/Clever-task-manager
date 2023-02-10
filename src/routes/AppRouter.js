@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
-import { privateRoutes, publicRoutes } from '@Constants/routes';
-import { UserAuth } from '@Context/AuthContext';
+import { privateRoutes, publicRoutes } from '@constants/routes';
+import { UserAuth } from '@context/AuthContext';
 
 export const AppRouter = () => {
   const { user } = UserAuth();

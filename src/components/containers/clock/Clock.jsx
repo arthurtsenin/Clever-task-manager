@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
+import { refreshClock } from '@api/dateHelper';
 import { StyledClock } from './Clock.styles';
-import { refreshClock } from '@Api/dateHelper';
 
 export const Clock = () => {
   const [date, setDate] = useState(new Date());

@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Clock } from '@Containers/clock/Clock';
-import { ErrorLogOut } from '@Views/toasts/ErrorLogOut';
-import { UserAuth } from '@Context/AuthContext';
-import { useTheme } from '@Context/ThemeContext';
+import { Clock } from '@containers/clock/Clock';
+import { showErrorLogOut } from '@views/toasts/showErrorLogOut';
+import { UserAuth } from '@context/AuthContext';
+import { useTheme } from '@context/ThemeContext';
+import { THEMES } from '@constants/themes';
 import Typography from '@mui/material/Typography';
 import Switch from '@mui/material/Switch';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -17,10 +18,9 @@ export const Header = () => {
     setError('');
     try {
       await logout();
-      localStorage.removeItem('user');
     } catch (err) {
       setError(err.message);
-      ErrorLogOut(error);
+      showErrorLogOut(error);
     }
   };
 
@@ -31,7 +31,7 @@ export const Header = () => {
       </Typography>
       <UserInfo>
         <Switch
-          checked={theme.changeTheme.type === 'dark'}
+          checked={theme.changeTheme.type === THEMES.dark.type}
           color="default"
           onChange={theme.toggleTheme}
         />

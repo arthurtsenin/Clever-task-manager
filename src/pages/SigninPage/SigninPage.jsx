@@ -1,5 +1,5 @@
-import { SignIn } from '@Containers/signIn/SignIn';
-import { useTheme } from '@Context/ThemeContext';
+import { SignIn } from '@containers/signIn/SignIn';
+import { useTheme } from '@context/ThemeContext';
 import { StyledPage } from './SigninPage.styles';
 
 export const SigninPage = () => {

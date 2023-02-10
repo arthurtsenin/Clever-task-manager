@@ -1,8 +1,10 @@
 import { useMemo, useState } from 'react';
-import { CalendarItem } from '@Containers/calendarItem/CalendarItem';
-import { ToDoList } from '@Containers/toDoList/ToDoList';
-import { UserTodo } from '@Context/TodoContext';
-import { buildCalendar, currentDay, choosenDay, initialDay } from '@Api/dateHelper';
+import { CalendarItem } from '@containers/calendarItem/CalendarItem';
+import { ToDoList } from '@containers/toDoList/ToDoList';
+import { UserTodo } from '@context/TodoContext';
+import { getCurrentDay, getChoosenDay, getInitialDay } from '@api/dateHelper';
+import { buildCalendar } from '@containers/calendarList/utils/calendarBuilder';
+import { RANGE_NUMBERS } from '@constants/numbersForScroll';
 import {
   CalendarContainer,
   Date,
@@ -13,12 +15,12 @@ import {
 
 export const CalendarList = () => {
   const [calendar, setCalendar] = useState([]);
-  const [value, setValue] = useState(initialDay());
+  const [value, setValue] = useState(getInitialDay());
   const [week, setWeek] = useState(1);
   const { todos } = UserTodo();
 
   const onWheel = (e) => {
-    if (e.deltaY == 0) return;
+    if (!e.deltaY) return;
     e.currentTarget.scrollTo({
       left: e.currentTarget.scrollLeft + e.deltaY,
     });
@@ -26,8 +28,10 @@ export const CalendarList = () => {
 
   const onScroll = (e) => {
     if (
-      Math.trunc((e.target.scrollLeft / e.target.scrollWidth) * 100) > 60 &&
-      Math.trunc((e.target.scrollLeft / e.target.scrollWidth) * 100) < 70
+      Math.trunc((e.target.scrollLeft / e.target.scrollWidth) * RANGE_NUMBERS.for_percent) >
+        RANGE_NUMBERS.min &&
+      Math.trunc((e.target.scrollLeft / e.target.scrollWidth) * RANGE_NUMBERS.for_percent) <
+        RANGE_NUMBERS.max
     ) {
       setWeek((prev) => prev + 1);
     }
@@ -44,8 +48,8 @@ export const CalendarList = () => {
     <>
       <InfoContainer>
         <div>
-          <Date>Current date: {currentDay()}</Date>
-          <Date>Choosen date: {choosenDay(value)}</Date>
+          <Date>Current date: {getCurrentDay()}</Date>
+          <Date>Choosen date: {getChoosenDay(value)}</Date>
         </div>
         <div>
           <Tasks>Tasks: {todos.length}</Tasks>
