@@ -58,7 +58,9 @@ npm build
 |   ├── components
 |   │   ├── containers
 |   │   │   ├── calendarItem
+|   │   │   |    └── utils
 |   │   │   ├── calendarList
+|   │   │   |    └── utils
 |   |   │   ├── clock
 |   |   │   ├── header
 |   |   │   ├── loader
@@ -78,8 +80,7 @@ npm build
 |   │   ├── HomePage
 |   │   ├── SigninPage
 |   │   └── SignupPage
-|   ├── routes
-|   └── util
+|   └──routes
 ├── .env
 ├── .eslintrc.json
 ├── .gitignore
