@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
-import { SigninPage } from '../pages/SigninPage/SigninPage';
-import { SignupPage } from '../pages/SignupPage/SignupPage';
-import { HomePage } from '../pages/HomePage/HomePage';
+import { SigninPage } from '@Pages/SigninPage/SigninPage';
+import { SignupPage } from '@Pages/SignupPage/SignupPage';
+import { HomePage } from '@Pages/HomePage/HomePage';
 
 export const routes = {
   SIGN_IN: '/',

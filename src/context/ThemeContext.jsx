@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { THEMES } from '../constants/themes';
+import { createContext, useContext, useState } from 'react';
+import { THEMES } from '@Constants/themes';
 
 export const ThemeContext = createContext(THEMES.light);
 
@@ -9,16 +9,17 @@ export const useTheme = () => {
 
 export const ThemeChangeProvider = ({ children }) => {
   const [theme, setTheme] = useState(
-    localStorage.getItem('theme') ? JSON.parse(localStorage.getItem('theme') || '') : THEMES.light
+    typeof JSON.parse(localStorage.getItem('theme')) === 'object'
+      ? JSON.parse(localStorage.getItem('theme'))
+      : THEMES.light
   );
 
   const toggleTheme = () => {
-    setTheme(theme.type === 'light' ? THEMES.dark : THEMES.light);
-  };
+    const change = theme.type === THEMES.light.type ? THEMES.dark : THEMES.light;
 
-  useEffect(() => {
-    localStorage.setItem('theme', JSON.stringify(theme));
-  }, [theme]);
+    setTheme(change);
+    localStorage.setItem('theme', JSON.stringify(change));
+  };
 
   return (
     <ThemeContext.Provider

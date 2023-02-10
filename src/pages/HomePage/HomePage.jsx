@@ -1,6 +1,6 @@
-import { useTheme } from '../../context/ThemeContext';
+import { useTheme } from '@Context/ThemeContext';
+import { CalendarList } from '@Containers/calendarList/CalendarList';
 import { StyledPage } from './HomePage.styles';
-import { CalendarList } from '../../components/containers/calendarList/CalendarList';
 
 export const HomePage = () => {
   const theme = useTheme();

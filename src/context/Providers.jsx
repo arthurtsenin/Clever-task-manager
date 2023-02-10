@@ -1,6 +1,6 @@
-import { AuthContextProvider } from './AuthContext';
-import { TodoContextProvider } from './TodoContext';
-import { ThemeChangeProvider } from './ThemeContext';
+import { AuthContextProvider } from '@Context/AuthContext';
+import { TodoContextProvider } from '@Context/TodoContext';
+import { ThemeChangeProvider } from '@Context/ThemeContext';
 
 export const Providers = ({ children }) => {
   return (

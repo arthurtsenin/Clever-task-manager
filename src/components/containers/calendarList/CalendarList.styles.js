@@ -3,9 +3,6 @@ import styled from 'styled-components';
 export const CalendarContainer = styled.div`
   display: flex;
   overflow: auto;
-  /* ::-webkit-scrollbar {
-    width: 0;
-  } */
 `;
 
 export const InfoContainer = styled.div`

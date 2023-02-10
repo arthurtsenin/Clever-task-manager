@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import { Fragment } from 'react';
-import { UserAuth } from '../../../context/AuthContext';
-import { useTheme } from '../../../context/ThemeContext';
-import { HeaderContainer, UserInfo, Email, Button } from './Header.styles';
-import { Clock } from '../clock/Clock';
+import { Clock } from '@Containers/clock/Clock';
+import { ErrorLogOut } from '@Views/toasts/ErrorLogOut';
+import { UserAuth } from '@Context/AuthContext';
+import { useTheme } from '@Context/ThemeContext';
 import Typography from '@mui/material/Typography';
 import Switch from '@mui/material/Switch';
 import LogoutIcon from '@mui/icons-material/Logout';
-import Swal from 'sweetalert2';
+import { HeaderContainer, UserInfo, Email, Button } from './Header.styles';
 
 export const Header = () => {
   const { user, logout } = UserAuth();
@@ -18,38 +17,34 @@ export const Header = () => {
     setError('');
     try {
       await logout();
-      localStorage.setItem('user', JSON.stringify(null));
+      localStorage.removeItem('user');
     } catch (err) {
       setError(err.message);
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops... Something went wrong',
-        text: `Error: ${error}`,
-      });
+      ErrorLogOut(error);
     }
   };
 
   return (
-    <HeaderContainer>
+    <HeaderContainer theme={theme}>
       <Typography component="h2" variant="h6">
         Task manager
       </Typography>
       <UserInfo>
         <Switch
-          checked={theme.changeTheme.type === 'dark' ? true : false}
+          checked={theme.changeTheme.type === 'dark'}
           color="default"
           onChange={theme.toggleTheme}
         />
         <Clock />
-        {user ? (
-          <Fragment>
-            <Email>User Email: {user && user.email}</Email>
+        {user && (
+          <>
+            <Email>User Email: {user?.email}</Email>
             <Button onClick={handleLogout}>
               <LogoutIcon mr={5} />
               Logout
             </Button>
-          </Fragment>
-        ) : null}
+          </>
+        )}
       </UserInfo>
     </HeaderContainer>
   );

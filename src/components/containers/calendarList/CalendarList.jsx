@@ -1,12 +1,8 @@
-import { useEffect, useState, useRef } from 'react';
-import { CalendarItem } from '../calendarItem/CalendarItem';
-import { ToDoList } from '../toDoList/ToDoList';
-import { DATE_FORMAT } from '../../../constants/dateFormat';
-import { buildCalendar } from '../../../utils/buildCalendar';
-import { UserTodo } from '../../../context/TodoContext';
-import moment from 'moment';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import { useMemo, useState } from 'react';
+import { CalendarItem } from '@Containers/calendarItem/CalendarItem';
+import { ToDoList } from '@Containers/toDoList/ToDoList';
+import { UserTodo } from '@Context/TodoContext';
+import { buildCalendar, currentDay, choosenDay, initialDay } from '@Api/dateHelper';
 import {
   CalendarContainer,
   Date,
@@ -17,74 +13,49 @@ import {
 
 export const CalendarList = () => {
   const [calendar, setCalendar] = useState([]);
-  const [value, setValue] = useState(moment());
+  const [value, setValue] = useState(initialDay());
   const [week, setWeek] = useState(1);
-  const scrollRef = useRef();
   const { todos } = UserTodo();
 
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (el) {
-      const onWheel = (e) => {
-        if (e.deltaY == 0) return;
-        e.preventDefault();
-        el.scrollTo({
-          left: el.scrollLeft + e.deltaY,
-        });
-      };
-      el.addEventListener('wheel', onWheel);
-      return () => el.removeEventListener('wheel', onWheel);
+  const onWheel = (e) => {
+    if (e.deltaY == 0) return;
+    e.currentTarget.scrollTo({
+      left: e.currentTarget.scrollLeft + e.deltaY,
+    });
+  };
+
+  const onScroll = (e) => {
+    if (
+      Math.trunc((e.target.scrollLeft / e.target.scrollWidth) * 100) > 60 &&
+      Math.trunc((e.target.scrollLeft / e.target.scrollWidth) * 100) < 70
+    ) {
+      setWeek((prev) => prev + 1);
     }
-  }, []);
+  };
 
-  useEffect(() => {
-    const el = scrollRef.current;
-    const onScroll = () => {
-      if (
-        Math.trunc((el.scrollLeft / el.scrollWidth) * 100) > 60 &&
-        Math.trunc((el.scrollLeft / el.scrollWidth) * 100) < 70
-      ) {
-        setWeek((prev) => prev + 1);
-      }
-    };
-    el.addEventListener('scroll', onScroll);
-    return () => el.removeEventListener('scroll', onScroll);
-  }, []);
+  useMemo(() => setCalendar(buildCalendar(value, week)), [value, week]);
 
-  useEffect(() => {
-    setCalendar(buildCalendar(value, week));
-  }, [week]);
+  const completedTasksLength = useMemo(
+    () => todos.filter((todo) => todo.completed).length,
+    [todos]
+  );
 
   return (
     <>
       <InfoContainer>
         <div>
-          <Date>Current date: {moment().format(DATE_FORMAT)}</Date>
-          <Date>Choosen date: {value.format(DATE_FORMAT)}</Date>
+          <Date>Current date: {currentDay()}</Date>
+          <Date>Choosen date: {choosenDay(value)}</Date>
         </div>
         <div>
           <Tasks>Tasks: {todos.length}</Tasks>
-          <CompletedTasks>
-            Completed Tasks: {todos.filter((todo) => todo.completed === true).length}
-          </CompletedTasks>
+          <CompletedTasks>Completed Tasks: {completedTasksLength}</CompletedTasks>
         </div>
       </InfoContainer>
 
-      <CalendarContainer ref={scrollRef}>
-        {calendar.map((day, index) => {
-          return (
-            <CalendarItem
-              className={
-                day.isSame(moment(), 'day') ? 'current' : value.isSame(day, 'day') ? 'chosen' : ''
-              }
-              key={index}
-              day={day}
-              weekDay={day.format('dddd')}
-              monthNumber={day.format('D')}
-              month={day.format('MMMM')}
-              onClick={() => setValue(day)}
-            />
-          );
+      <CalendarContainer onWheel={onWheel} onScroll={onScroll}>
+        {calendar.map((day) => {
+          return <CalendarItem value={value} key={day} day={day} onClick={() => setValue(day)} />;
         })}
       </CalendarContainer>
       <ToDoList chosenDate={value} />

@@ -1,3 +1,8 @@
+import { useMemo } from 'react';
+import { UserTodo } from '@Context/TodoContext';
+import { useTheme } from '@Context/ThemeContext';
+import { findDaysWithTasks, findDaysWithCompletedTasks } from '@Util/findDaysWithTasks';
+import { weekDayFormat, monthNumberFormat, monthFormat, markerDay } from '@Api/dateHelper';
 import {
   StyledCalendarItem,
   WeekDay,
@@ -7,39 +12,26 @@ import {
   DotHasCheckedTask,
   DotsMarkers,
 } from './CalendarItem.styles';
-import { DATE_FORMAT } from '../../../constants/dateFormat';
-import { useEffect, useState } from 'react';
-import { UserTodo } from '../../../context/TodoContext';
 
-export const CalendarItem = ({ day, weekDay, monthNumber, month, className, onClick }) => {
+export const CalendarItem = ({ day, value, onClick }) => {
   const { todos } = UserTodo();
-  const [todoDays, setTodoDays] = useState([]);
-  const [taskCompleted, setTaskCompleted] = useState([]);
+  const theme = useTheme();
 
-  useEffect(() => {
-    setTodoDays(findDaysWithTasks());
-    setTaskCompleted(findDaysWithCompletedTasks());
-  }, [todos]);
-
-  const findDaysWithTasks = () => {
-    return todos.map((todo) => todo.createdAt).includes(day.format(DATE_FORMAT));
-  };
-
-  const findDaysWithCompletedTasks = () => {
-    return todos
-      .filter((todo) => todo.createdAt === day.format(DATE_FORMAT))
-      .find((item) => item.completed);
-  };
+  const dayIncludeTask = useMemo(() => findDaysWithTasks(todos, day), [todos, day]);
+  const dayIncludeCompletedTask = useMemo(
+    () => findDaysWithCompletedTasks(todos, day),
+    [todos, day]
+  );
 
   return (
     <>
-      <StyledCalendarItem className={className} onClick={onClick}>
-        <WeekDay>{weekDay}</WeekDay>
-        <MonthNumber>{monthNumber}</MonthNumber>
-        <Month>{month}</Month>
+      <StyledCalendarItem theme={theme} className={markerDay(value, day)} onClick={onClick}>
+        <WeekDay>{weekDayFormat(day)}</WeekDay>
+        <MonthNumber>{monthNumberFormat(day)}</MonthNumber>
+        <Month>{monthFormat(day)}</Month>
         <DotsMarkers>
-          {todoDays ? <DotHasTask /> : null}
-          {taskCompleted ? <DotHasCheckedTask /> : null}
+          {dayIncludeTask && <DotHasTask />}
+          {dayIncludeCompletedTask && <DotHasCheckedTask />}
         </DotsMarkers>
       </StyledCalendarItem>
     </>

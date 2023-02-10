@@ -1,19 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { StyledClock } from './Clock.styles';
+import { refreshClock } from '@Api/dateHelper';
 
 export const Clock = () => {
-  const [clock, setClock] = useState('');
+  const [date, setDate] = useState(new Date());
 
-  const showTime = async () => {
-    const date = new Date();
-    const hours = date.getHours();
-    const hoursOuter = hours < 10 ? '0' + hours : hours;
-    const minutes = date.getMinutes();
-    const minutesOuter = minutes < 10 ? '0' + minutes : minutes;
-    const seconds = date.getSeconds();
-    const secondsOuter = seconds < 10 ? '0' + seconds : seconds;
-    await setClock(`${hoursOuter}:${minutesOuter}:${secondsOuter}`);
-  };
-  setInterval(showTime);
-  return <StyledClock>{clock}</StyledClock>;
+  useEffect(() => {
+    const timerId = setInterval(refreshClock(setDate), 1000);
+    return function cleanup() {
+      clearInterval(timerId);
+    };
+  }, []);
+  return <StyledClock>{date.toLocaleTimeString()}</StyledClock>;
 };

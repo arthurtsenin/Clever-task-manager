@@ -2,5 +2,6 @@ import styled from 'styled-components';
 
 export const StyledPage = styled.div`
   width: 100%;
-  height: 100vh;
+  min-height: 100%;
+  position: absolute;
 `;

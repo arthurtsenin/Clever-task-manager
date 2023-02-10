@@ -1,6 +1,6 @@
-import { Header } from './components/containers/header/Header';
-import { AppRouter } from './routes/AppRouter';
-import { Providers } from './context/Providers';
+import { Header } from '@Containers/header/Header';
+import { AppRouter } from '@Routes/AppRouter';
+import { Providers } from '@Context/Providers';
 
 function App() {
   return (

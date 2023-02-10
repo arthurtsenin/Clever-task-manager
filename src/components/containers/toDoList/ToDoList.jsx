@@ -1,15 +1,18 @@
-import { useState } from 'react';
-import { PrimaryButton } from '../../views/button/PrimaryButton';
-import { TodoItem } from '../toDoItem/ToDoItem';
-import { AddToDo, TodosList } from './ToDoList.styles';
-import { UserTodo } from '../../../context/TodoContext';
-import { auth, db } from '../../../api/firebase.config';
-import { set, ref, remove, update } from 'firebase/database';
+import { useEffect, useState } from 'react';
+import { TodoItem } from '@Containers/toDoItem/ToDoItem';
+import { PrimaryButton } from '@Views/button/PrimaryButton';
+import { ErrorDateChoose } from '@Views/toasts/ErrorDateChoose';
+import { UserTodo } from '@Context/TodoContext';
 import { uid } from 'uid';
-import { DATE_FORMAT, REVERTE_DATE_FORMAT } from '../../../constants/dateFormat';
+import { dateValidator, revertChoosenDay, choosenDay } from '../../../api/dateHelper';
 import TextField from '@mui/material/TextField';
-import moment from 'moment';
-import Swal from 'sweetalert2';
+import { AddToDo, TodosList } from './ToDoList.styles';
+import {
+  authWrireTodo,
+  authUpdateCheckedTodo,
+  authUpdateTodo,
+  authDeleteTodo,
+} from '../../../api/authHelper';
 
 export const ToDoList = ({ chosenDate }) => {
   const [title, setTitle] = useState('');
@@ -19,22 +22,16 @@ export const ToDoList = ({ chosenDate }) => {
   const [tempUidd, setTempUidd] = useState('');
   const { todos } = UserTodo();
 
-  if (moment(date).add(1, 'day').isBefore(new Date())) {
-    Swal.fire({
-      icon: 'error',
-      title: 'You can`t select a date in the past ',
-    });
-  }
+  useEffect(() => {
+    if (dateValidator(date)) {
+      ErrorDateChoose();
+    }
+  }, [date]);
+
   const writeToDatabase = () => {
     const uidd = uid();
-    set(ref(db, `/${auth.currentUser.uid}/${uidd}`), {
-      title: title,
-      description: description,
-      uidd: uidd,
-      completed: false,
-      createdAt: date.replace(/(\d*)-(\d*)-(\d*)/, '$3-$2-$1') || chosenDate.format(DATE_FORMAT),
-    });
 
+    authWrireTodo(uidd, title, description, date, chosenDate);
     setTitle('');
     setDescription('');
     setDate('');
@@ -48,17 +45,11 @@ export const ToDoList = ({ chosenDate }) => {
   };
 
   const changeTodoCompletion = (todo) => {
-    update(ref(db, `/${auth.currentUser.uid}/${todo.uidd}`), { completed: !todo.completed });
+    authUpdateCheckedTodo(todo);
   };
 
   const handleEditConfirm = () => {
-    update(ref(db, `/${auth.currentUser.uid}/${tempUidd}`), {
-      title: title,
-      description: description,
-      tempUidd: tempUidd,
-      createdAt: date.replace(/(\d*)-(\d*)-(\d*)/, '$3-$2-$1') || chosenDate.format(DATE_FORMAT),
-    });
-
+    authUpdateTodo(tempUidd, title, description, date, chosenDate);
     setTitle('');
     setDescription('');
     setDate('');
@@ -66,7 +57,19 @@ export const ToDoList = ({ chosenDate }) => {
   };
 
   const handleDelete = (uid) => {
-    remove(ref(db, `/${auth.currentUser.uid}/${uid}`));
+    authDeleteTodo(uid);
+  };
+
+  const handleChangeTitle = (e) => {
+    setTitle(e.target.value);
+  };
+
+  const handleChangeDescription = (e) => {
+    setDescription(e.target.value);
+  };
+
+  const handleChangeDate = (e) => {
+    setDate(e.target.value);
   };
 
   return (
@@ -79,7 +82,7 @@ export const ToDoList = ({ chosenDate }) => {
           type="text"
           error={!title.trim()}
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={handleChangeTitle}
           required
         />
         <TextField
@@ -88,34 +91,28 @@ export const ToDoList = ({ chosenDate }) => {
           color="warning"
           label="Description"
           value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          onChange={handleChangeDescription}
         />
         <TextField
           type="date"
           color="warning"
           variant="outlined"
-          value={date || chosenDate.format(REVERTE_DATE_FORMAT)}
-          onChange={(e) => setDate(e.target.value)}
+          value={date || revertChoosenDay(chosenDate)}
+          onChange={handleChangeDate}
         />
         {isEdit ? (
-          <PrimaryButton
-            disabled={!title || moment(date).add(1, 'day').isBefore(new Date())}
-            onClick={handleEditConfirm}
-          >
+          <PrimaryButton disabled={!title || dateValidator(date)} onClick={handleEditConfirm}>
             CONFIRM
           </PrimaryButton>
         ) : (
-          <PrimaryButton
-            disabled={!title || moment(date).add(1, 'day').isBefore(new Date())}
-            onClick={writeToDatabase}
-          >
+          <PrimaryButton disabled={!title || dateValidator(date)} onClick={writeToDatabase}>
             ADD
           </PrimaryButton>
         )}
       </AddToDo>
       <TodosList>
         {todos
-          .filter((todo) => todo.createdAt === chosenDate.format(DATE_FORMAT))
+          .filter((todo) => todo.createdAt === choosenDay(chosenDate))
           .map((todo) => (
             <TodoItem
               key={todo.uidd}
