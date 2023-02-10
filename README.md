@@ -62,13 +62,15 @@ npm build
 |   |   │   ├── clock
 |   |   │   ├── header
 |   |   │   ├── loader
-|   |   │   ├── sign
+|   |   │   ├── signIn
+|   |   │   ├── signUp
 |   │   |   ├── toDoItem
 |   │   |   └── toDoList
 |   │   ├── views
 |   |   │   ├── button
 |   |   │   ├── form
 |   |   │   ├── formContainer
+|   |   │   ├── toasts
 |   │   |   └── input
 |   ├── constants
 |   ├── context
@@ -77,11 +79,12 @@ npm build
 |   │   ├── SigninPage
 |   │   └── SignupPage
 |   ├── routes
-|   └── utils
+|   └── util
 ├── .env
 ├── .eslintrc.json
 ├── .gitignore
 ├── .prettierrc
+├── craco.config.js
 ├── package-lock.json
 ├── package.json
 └── README.md
