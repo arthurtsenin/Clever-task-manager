@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { UserTodo } from '@context/TodoContext';
 import { useTheme } from '@context/ThemeContext';
 import {
@@ -30,13 +30,16 @@ export const CalendarItem = ({ day, value, onClick }) => {
     () => findDaysWithCompletedTasks(todos, day),
     [todos, day]
   );
-
+  const statusMarker = useMemo(() => isSameDay(value, day), [value, day]);
+  const weekDay = useMemo(() => weekDayFormat(day), [day]);
+  const monthNumberr = useMemo(() => monthNumberFormat(day), [day]);
+  const month = useMemo(() => monthFormat(day), [day]);
   return (
     <>
-      <StyledCalendarItem theme={theme} className={isSameDay(value, day)} onClick={onClick}>
-        <WeekDay>{weekDayFormat(day)}</WeekDay>
-        <MonthNumber>{monthNumberFormat(day)}</MonthNumber>
-        <Month>{monthFormat(day)}</Month>
+      <StyledCalendarItem theme={theme} className={statusMarker} onClick={onClick}>
+        <WeekDay>{weekDay}</WeekDay>
+        <MonthNumber>{monthNumberr}</MonthNumber>
+        <Month>{month}</Month>
         <DotsMarkers>
           {dayIncludeTask && <DotHasTask />}
           {dayIncludeCompletedTask && <DotHasCheckedTask />}

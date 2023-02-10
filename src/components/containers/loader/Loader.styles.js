@@ -4,6 +4,6 @@ export const LoaderContainer = styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
-  min-height: 50%;
-  width: 50%;
+  height: 50px;
+  width: 50px;
 `;

@@ -1,9 +1,4 @@
-import Container from '@mui/material/Container';
-import styled from 'styled-components';
-
-const StyledContainer = styled(Container)`
-  padding: 150px;
-`;
+import { StyledContainer } from './FormContainer.styles';
 
 export const FormContainer = ({ children, ...props }) => {
   return (

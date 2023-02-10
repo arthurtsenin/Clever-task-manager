@@ -47,7 +47,7 @@ export const SignIn = () => {
 
   return (
     <>
-      <FormContainer align="center">
+      <FormContainer style={{ height: '100%' }} align="center">
         <Typography component="h2" variant="h3">
           Sign in to your account
         </Typography>

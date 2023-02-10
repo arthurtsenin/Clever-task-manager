@@ -62,7 +62,7 @@ export const CalendarList = () => {
           return <CalendarItem value={value} key={day} day={day} onClick={() => setValue(day)} />;
         })}
       </CalendarContainer>
-      <ToDoList chosenDate={value} />
+      <ToDoList style={{ display: 'flex' }} chosenDate={value} />
     </>
   );
 };

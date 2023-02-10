@@ -44,7 +44,3 @@ export const isSameCurrentDay = (day) => {
 export const isSameChoosenDay = (value, day) => {
   return value.isSame(day, 'day');
 };
-
-export const refreshClock = (setDate) => {
-  setDate(new Date());
-};

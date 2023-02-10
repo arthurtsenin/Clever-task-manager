@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { uid } from 'uid';
 import { TodoItem } from '@containers/toDoItem/ToDoItem';
 import { PrimaryButton } from '@views/button/PrimaryButton';
@@ -57,7 +57,7 @@ export const ToDoList = ({ chosenDate }) => {
   };
 
   const handleChangeTitle = (e) => {
-    setTitle(e.target.value);
+    return setTitle(e.target.value);
   };
 
   const handleChangeDescription = (e) => {
@@ -67,6 +67,24 @@ export const ToDoList = ({ chosenDate }) => {
   const handleChangeDate = (e) => {
     setDate(e.target.value);
   };
+
+  const confirmDisabled = useMemo(() => !title || validateDate(date), [title, date]);
+  const addDisabled = useMemo(() => !title || validateDate(date), [title, date]);
+  const showTodos = useMemo(
+    () =>
+      todos
+        .filter((todo) => todo.createdAt === getChoosenDay(chosenDate))
+        .map((todo) => (
+          <TodoItem
+            key={todo.uidd}
+            todo={todo}
+            handleUpdate={() => handleUpdate(todo)}
+            handleDelete={() => handleDelete(todo.uidd)}
+            toddleCompleted={() => changeTodoCompletion(todo)}
+          />
+        )),
+    [chosenDate, todos, date]
+  );
 
   return (
     <>
@@ -97,28 +115,16 @@ export const ToDoList = ({ chosenDate }) => {
           onChange={handleChangeDate}
         />
         {isEdit ? (
-          <PrimaryButton disabled={!title || validateDate(date)} onClick={handleEditConfirm}>
+          <PrimaryButton disabled={confirmDisabled} onClick={handleEditConfirm}>
             CONFIRM
           </PrimaryButton>
         ) : (
-          <PrimaryButton disabled={!title || validateDate(date)} onClick={writeToDatabase}>
+          <PrimaryButton disabled={addDisabled} onClick={writeToDatabase}>
             ADD
           </PrimaryButton>
         )}
       </AddToDo>
-      <TodosList>
-        {todos
-          .filter((todo) => todo.createdAt === getChoosenDay(chosenDate))
-          .map((todo) => (
-            <TodoItem
-              key={todo.uidd}
-              todo={todo}
-              handleUpdate={() => handleUpdate(todo)}
-              handleDelete={() => handleDelete(todo.uidd)}
-              toddleCompleted={() => changeTodoCompletion(todo)}
-            />
-          ))}
-      </TodosList>
+      <TodosList>{showTodos}</TodosList>
     </>
   );
 };
