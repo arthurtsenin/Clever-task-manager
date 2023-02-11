@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import { THEMES } from '@constants/themes';
+import { LOCAL_STORAGE_KEYS } from '@constants/localStorageKeys';
 
 export const ThemeContext = createContext(THEMES.light);
 
@@ -9,8 +10,8 @@ export const useTheme = () => {
 
 export const ThemeChangeProvider = ({ children }) => {
   const [theme, setTheme] = useState(
-    typeof JSON.parse(localStorage.getItem('theme')) === 'object'
-      ? JSON.parse(localStorage.getItem('theme'))
+    typeof JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.theme)) === 'object'
+      ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.theme))
       : THEMES.light
   );
 
@@ -18,7 +19,7 @@ export const ThemeChangeProvider = ({ children }) => {
     const change = theme.type === THEMES.light.type ? THEMES.dark : THEMES.light;
 
     setTheme(change);
-    localStorage.setItem('theme', JSON.stringify(change));
+    localStorage.setItem(LOCAL_STORAGE_KEYS.theme, JSON.stringify(change));
   };
 
   return (

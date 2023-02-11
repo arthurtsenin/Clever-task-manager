@@ -18,15 +18,8 @@ export const ToDoList = ({ chosenDate }) => {
   const [tempUidd, setTempUidd] = useState('');
   const { todos } = UserTodo();
 
-  useEffect(() => {
-    if (validateDate(date)) {
-      showErrorDateChoose();
-    }
-  }, [date]);
-
   const writeToDatabase = () => {
     const uidd = uid();
-
     wrireTodo(auth, uidd, title, description, date, chosenDate);
     setTitle('');
     setDescription('');
@@ -85,6 +78,12 @@ export const ToDoList = ({ chosenDate }) => {
         )),
     [chosenDate, todos, date]
   );
+
+  useEffect(() => {
+    if (validateDate(date)) {
+      showErrorDateChoose();
+    }
+  }, [date]);
 
   return (
     <>

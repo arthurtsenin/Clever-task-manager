@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { createUser, signIn, logout, authState } from '@api/authHelper';
+import { LOCAL_STORAGE_KEYS } from '@constants/localStorageKeys';
 
 const UserContext = createContext();
 
@@ -9,7 +10,9 @@ export const UserAuth = () => {
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(
-    localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null
+    localStorage.getItem(LOCAL_STORAGE_KEYS.user)
+      ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.user))
+      : null
   );
 
   useEffect(() => {

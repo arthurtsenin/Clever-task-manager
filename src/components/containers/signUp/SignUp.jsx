@@ -11,6 +11,7 @@ import { showErrorSignUp } from '@views/toasts/showErrorSignUp';
 import { UserAuth } from '@context/AuthContext';
 import { formOptions } from '@constants/formShemaOptions';
 import { useTheme } from '@context/ThemeContext';
+import { routes } from '@constants/routes';
 import Typography from '@mui/material/Typography';
 
 export const SignUp = () => {
@@ -69,7 +70,7 @@ export const SignUp = () => {
           />
           <PrimaryButton type="submit">Sign Up</PrimaryButton>
           <Typography component="p" variant="h5" mt={2}>
-            Already have an account? <Link to="/">Sign in.</Link>
+            Already have an account? <Link to={routes.SIGN_IN}>Sign in.</Link>
           </Typography>
         </Form>
       </FormContainer>

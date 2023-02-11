@@ -10,8 +10,9 @@ import { showSuccessSignIn } from '@views/toasts/showSuccessSignIn';
 import { showErrorSignIn } from '@views/toasts/showErrorSignIn';
 import { formOptions } from '@constants/formShemaOptions';
 import { UserAuth } from '@context/AuthContext';
-import Typography from '@mui/material/Typography';
 import { useTheme } from '@context/ThemeContext';
+import { routes } from '@constants/routes';
+import Typography from '@mui/material/Typography';
 
 export const SignIn = () => {
   const [error, setError] = useState('');
@@ -47,7 +48,7 @@ export const SignIn = () => {
 
   return (
     <>
-      <FormContainer style={{ height: '100%' }} align="center">
+      <FormContainer align="center">
         <Typography component="h2" variant="h3">
           Sign in to your account
         </Typography>
@@ -68,7 +69,7 @@ export const SignIn = () => {
           />
           <PrimaryButton type="submit">Sign In</PrimaryButton>
           <Typography component="p" variant="h5" mt={2}>
-            Dont have an account yet? <Link to="/signup">Sign up.</Link>
+            Dont have an account yet? <Link to={routes.SIGN_UP}>Sign up.</Link>
           </Typography>
         </Form>
       </FormContainer>
