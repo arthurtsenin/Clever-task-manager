@@ -1,12 +1,12 @@
 import { useEffect, useState, useMemo } from 'react';
 import { uid } from 'uid';
+import { validateDate, revertChoosenDay, getChoosenDay } from '@api/dateHelper';
+import { auth } from '@api/authHelper';
+import { wrireTodo, updateCheckedTodo, updateTodo, deleteTodo } from '@api/todosHelper';
 import { TodoItem } from '@containers/toDoItem/ToDoItem';
 import { PrimaryButton } from '@views/button/PrimaryButton';
 import { showErrorDateChoose } from '@views/toasts/showErrorDateChoose';
 import { UserTodo } from '@context/TodoContext';
-import { validateDate, revertChoosenDay, getChoosenDay } from '@api/dateHelper';
-import { auth } from '@api/authHelper';
-import { wrireTodo, updateCheckedTodo, updateTodo, deleteTodo } from '@api/todosHelper';
 import TextField from '@mui/material/TextField';
 import { AddToDo, TodosList } from './ToDoList.styles';
 
