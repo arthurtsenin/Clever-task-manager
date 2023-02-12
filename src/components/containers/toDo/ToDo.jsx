@@ -26,39 +26,28 @@ export const ToDo = () => {
     setDate('');
   };
 
-  const handleUpdate = useMemo(
-    () => (todo) => {
-      setIsEdit(true);
-      setTitle(todo.title);
-      setDescription(todo.description);
-      setTempUidd(todo.uidd);
-    },
-    []
-  );
+  const handleUpdate = (todo) => {
+    setIsEdit(true);
+    setTitle(todo.title);
+    setDescription(todo.description);
+    setTempUidd(todo.uidd);
+  };
 
-  const changeTodoCompletion = useMemo(
-    () => (todo) => {
-      updateCheckedTodo(auth, todo);
-    },
-    []
-  );
+  const changeTodoCompletion = (todo) => {
+    updateCheckedTodo(auth, todo);
+  };
 
-  const handleEditConfirm = useMemo(
-    () => () => {
-      updateTodo(auth, tempUidd, title, description, date, dateValue);
-      setTitle('');
-      setDescription('');
-      setDate('');
-      setIsEdit(false);
-    },
-    [date, dateValue, description, tempUidd, title]
-  );
-  const handleDelete = useMemo(
-    () => (uid) => {
-      deleteTodo(auth, uid);
-    },
-    []
-  );
+  const handleEditConfirm = () => {
+    updateTodo(auth, tempUidd, title, description, date, dateValue);
+    setTitle('');
+    setDescription('');
+    setDate('');
+    setIsEdit(false);
+  };
+
+  const handleDelete = (uid) => {
+    deleteTodo(auth, uid);
+  };
 
   const handleChangeTitle = (e) => {
     return setTitle(e.target.value);
