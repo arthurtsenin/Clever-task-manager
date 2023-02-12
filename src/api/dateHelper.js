@@ -29,6 +29,10 @@ export const revertChoosenDay = (value) => {
   return value.format(REVERTE_DATE_FORMAT);
 };
 
+export const setDatePickersDate = (date, chosenDate) => {
+  return date || revertChoosenDay(chosenDate);
+};
+
 export const getCreatedAtDate = (date, value) => {
   return date.replace(/(\d*)-(\d*)-(\d*)/, '$3-$2-$1') || getChoosenDay(value);
 };

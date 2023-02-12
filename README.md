@@ -57,23 +57,26 @@ npm build
 |   ├── api
 |   ├── components
 |   │   ├── containers
-|   │   │   ├── calendarItem
+|   │   │   ├── calendar
 |   │   │   |    └── utils
-|   │   │   ├── calendarList
+|   │   │   ├── calendarInfo
+|   │   │   ├── calendarItem
 |   │   │   |    └── utils
 |   |   │   ├── clock
 |   |   │   ├── header
-|   |   │   ├── loader
 |   |   │   ├── signIn
 |   |   │   ├── signUp
+|   │   |   ├── toDo
 |   │   |   ├── toDoItem
 |   │   |   └── toDoList
 |   │   ├── views
 |   |   │   ├── button
 |   |   │   ├── form
 |   |   │   ├── formContainer
-|   |   │   ├── toasts
-|   │   |   └── input
+|   |   │   ├── input
+|   |   │   ├── layout
+|   |   │   ├── loader
+|   |   │   └──toasts
 |   ├── constants
 |   ├── context
 |   ├── pages

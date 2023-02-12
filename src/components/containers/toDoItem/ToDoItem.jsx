@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { useTheme } from '@context/ThemeContext';
 import Checkbox from '@mui/material/Checkbox';
 import { Todo, TodoText, TodoDate, StyledEditIcon, StyledDeleteIcon } from './ToDoItem.styles';
 
-export const TodoItem = ({ todo, handleUpdate, handleDelete, toddleCompleted }) => {
+export const TodoItem = memo(({ todo, handleUpdate, handleDelete, toddleCompleted }) => {
   const theme = useTheme();
 
   return (
@@ -18,4 +18,4 @@ export const TodoItem = ({ todo, handleUpdate, handleDelete, toddleCompleted }) 
       <StyledDeleteIcon onClick={handleDelete} />
     </Todo>
   );
-};
+});

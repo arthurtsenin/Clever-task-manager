@@ -1,10 +1,5 @@
 import styled from 'styled-components';
 
-export const CalendarContainer = styled.div`
-  display: flex;
-  overflow: auto;
-`;
-
 export const InfoContainer = styled.div`
   padding: 70px 15px 0;
   display: flex;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { Loader } from '@containers/loader/Loader';
+import { Loader } from '@views/loader/Loader';
 import { FormContainer } from '@views/formContainer/FormContainer';
 import { Form } from '@views/form/Form';
 import { Input } from '@views/input/Input';
