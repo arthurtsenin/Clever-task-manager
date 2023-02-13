@@ -5,10 +5,10 @@ import { auth } from '@api/authHelper';
 import { wrireTodo, updateCheckedTodo, updateTodo, deleteTodo } from '@api/todosHelper';
 import { PrimaryButton } from '@views/button/PrimaryButton';
 import { showErrorDateChoose } from '@views/toasts/showErrorDateChoose';
-import TextField from '@mui/material/TextField';
 import { useDateValue } from '@context/DateValueContext';
-import { AddToDo } from './ToDo.styles';
 import { ToDoList } from '@containers/toDoList/ToDoList';
+import TextField from '@mui/material/TextField';
+import { AddToDo } from './ToDo.styles';
 
 export const ToDo = () => {
   const [title, setTitle] = useState('');
