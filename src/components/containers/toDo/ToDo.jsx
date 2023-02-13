@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import { uid } from 'uid';
 import { validateDate, setDatePickersDate } from '@api/dateHelper';
 import { auth } from '@api/authHelper';
@@ -26,28 +26,28 @@ export const ToDo = () => {
     setDate('');
   };
 
-  const handleUpdate = (todo) => {
+  const handleUpdate = useCallback((todo) => {
     setIsEdit(true);
     setTitle(todo.title);
     setDescription(todo.description);
     setTempUidd(todo.uidd);
-  };
+  }, []);
 
-  const changeTodoCompletion = (todo) => {
+  const changeTodoCompletion = useCallback((todo) => {
     updateCheckedTodo(auth, todo);
-  };
+  }, []);
 
-  const handleEditConfirm = () => {
+  const handleEditConfirm = useCallback(() => {
     updateTodo(auth, tempUidd, title, description, date, dateValue);
     setTitle('');
     setDescription('');
     setDate('');
     setIsEdit(false);
-  };
+  }, [date, dateValue, description, tempUidd, title]);
 
-  const handleDelete = (uid) => {
+  const handleDelete = useCallback((uid) => {
     deleteTodo(auth, uid);
-  };
+  }, []);
 
   const handleChangeTitle = (e) => {
     return setTitle(e.target.value);
