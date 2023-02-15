@@ -6,7 +6,7 @@
 
 ## Demo
 
-<a href="https://clever-task-manager.netlify.app/">Task manager</a>
+<a target='_blank' href="https://clever-task-manager.netlify.app/">Task manager</a>
 
 ## How to run the app
 
