@@ -10,7 +10,7 @@ export const useTheme = () => {
 
 export const ThemeChangeProvider = ({ children }) => {
   const [theme, setTheme] = useState(
-    typeof JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.theme)) === 'object'
+    localStorage.getItem(LOCAL_STORAGE_KEYS.theme)
       ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEYS.theme))
       : THEMES.light
   );

@@ -4,6 +4,10 @@
 
 <a href="https://drive.google.com/file/d/18I1PxOxZn2lwm__YeOtMNoWeiXygKwwN/view">Watch task</a>
 
+## Demo
+
+<a href="https://clever-task-manager.netlify.app/">Task manager</a>
+
 ## How to run the app
 
 **Install**
