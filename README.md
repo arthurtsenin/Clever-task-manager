@@ -40,12 +40,11 @@ npm build
 - react-dotenv
 - react-hook-form
 - react-spinners-kit
-- slick-carousel
 - sweetalert2
 - mui/material
 - styled-components
 - yup
-- moment
+- dayjs
 - Prettier
 - ESLint
 
